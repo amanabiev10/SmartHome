@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'devices/css/create_lamp.css' %}">
+{% endblock %}
+
+
+{% block main %}
+    <div class="create_lamp">
+        <form action="" method="post">
+            {% csrf_token %}
+            <h1>Neue Lampe hinzufügen</h1>
+            {{ form.as_p }}
+            <button type="submit">erstellen</button>
+        </form>
+    </div>
+{% endblock %}l %}
+
+{% block javascript %}
+    <script src="{% static 'devices/js/create_lamp.js' %}"></script>
+{% endblock %}

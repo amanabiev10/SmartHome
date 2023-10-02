@@ -1,0 +1,23 @@
+[
+  {
+    "model": "accounts.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$600000$eZFfWJa2Vek2JLB8J5dn1M$sMjvuB9RjltWEx1Nn2Isu1w8NjRAT7GZBP2yOCM4wPU=",
+      "last_login": "2023-09-27T17:49:43Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "Max",
+      "last_name": "Mustermann",
+      "email": "abc@abc.abc",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2023-09-27T17:49:17Z",
+      "display_name": "",
+      "registered": "2023-09-27T17:49:17.699Z",
+      "created_at": "2023-09-27T17:54:28.485Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

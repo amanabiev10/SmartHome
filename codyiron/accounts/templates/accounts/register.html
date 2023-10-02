@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- Designined by CodingLab - youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'accounts/css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div class="container">
+    <div class="title">Registrierung</div>
+    <div class="content">
+        <form action="{% url 'accounts:registration' %}" method="post">
+            {% csrf_token %}
+            <div class="user-details">
+                <div class="input-box">
+                    <label for="{{ form.username.id_for_label }}" class="details">Benutzername</label>
+                    {{ form.username }}
+                </div>
+                <div class="input-box">
+                    <label for="{{ form.first_name.id_for_label }}" class="details">Vorname:</label>
+                    {{ form.first_name }}
+                </div>
+                <div class="input-box">
+                    <label for="{{ form.last_name.id_for_label }}" class="details">Nachname:</label>
+                    {{ form.last_name }}
+                </div>
+                <div class="input-box">
+                    <label for="{{ form.email.id_for_label }}" class="details">E-Mail:</label>
+                    {{ form.email }}
+                </div>
+                <div class="input-box">
+                    <label for="{{ form.password1.id_for_label }}" class="details">Passwort:</label>
+                    {{ form.password1 }}
+                </div>
+                <div class="input-box">
+                    <label for="{{ form.password2.id_for_label }}" class="details">Passwort wiederholen:</label>
+                    {{ form.password2 }}
+                </div>
+            </div>
+            <div class="button">
+                <input type="submit" value="Registrieren">
+            </div>
+        </form>
+        {% if form.errors %}
+            <div class="alert alert-danger">
+                {{ form.errors }}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>

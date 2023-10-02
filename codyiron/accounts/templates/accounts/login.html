@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>{{ title }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'accounts/css/main.css' %}">
+</head>
+<body>
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form action="{% url 'accounts:login' %}" method="post" class="login100-form validate-form">
+                {% csrf_token %}
+                <span class="login100-form-title">
+						Anmelden
+					</span>
+
+                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                    {{ form.username }}
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="Password is required">
+                    {{ form.password }}
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <button type="submit" class="login100-form-btn">
+                        anmelden
+                    </button>
+                </div>
+
+                <div class="text-center p-t-15">
+						<span class="txt1">
+							Vergessen
+						</span>
+                    <a class="txt2" href="#">
+                        Password?
+                    </a>
+                </div>
+                <br>
+                <div class="p-t-15">
+                    {% if messages or form.non_field_errors %}
+                        {% if messages %}
+                            <div class="alert alert-danger">
+                                {% for message in messages %}
+                                    {{ message }}
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <div class="text-center p-t-20">
+                    <a class="txt2" href="{% url 'accounts:registration' %}">
+                        Registrieren
+                        <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

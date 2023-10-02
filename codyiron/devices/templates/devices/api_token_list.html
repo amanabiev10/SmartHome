@@ -1,0 +1,27 @@
+<!-- generate_api_token.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Token Generieren</title>
+    <link rel="stylesheet" href="{% static 'devices/css/styles.css' %}">
+</head>
+<body>
+<div class="container">
+    <h2>API-Token Generieren</h2>
+    {% if tokens %}
+        {% for token in tokens %}
+            <div id="token-container">
+                <p>Ihre API-Token:</p>
+                <div id="token">{'Authorization': 'Token {{ token }}'}</div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Sie haben keine API-Token</p>
+    {% endif %}
+    <a href="{% url 'devices:generate_api_token' %}" id="generate-token-btn">Neue API-Token generieren</a>
+</div>
+</body>
+</html>
