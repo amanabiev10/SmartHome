@@ -28,7 +28,7 @@
                 e.preventDefault();
                 $.ajax({
                     type: 'POST',
-                    url: '{% url "update_lamp" lamp_id=lamp.id %}',
+                    url: '{% url "main:update_lamp" lamp_id=lamp.id %}',  <!-- Anpassen des URL-Musters -->
                     data: $(this).serialize(),
                     success: function (data) {
                         if (data.status === 'success') {

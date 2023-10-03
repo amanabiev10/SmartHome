@@ -2,9 +2,8 @@ import requests
 
 url = 'http://127.0.0.1:8000/api/devices'
 
-token = '79b2c20672bcaf1ecf3d81d0857bf47997a92042'
 
-headers = {'Authorization': f'Token {token}'}
+headers = {'Authorization': 'Token db0b3ffb6f3a481062979f1f8b66809dbbc51373'}
 
 # Sende eine GET-Anfrage
 response = requests.get(url, headers=headers)

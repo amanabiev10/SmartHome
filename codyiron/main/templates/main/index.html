@@ -19,28 +19,68 @@
                     {% else %}{% static 'main/images/2910914.png' %}{% endif %}" alt="{{ lamp.name }}"
                      id="image{{ lamp.id }}">
                 <div class="btn-cont">
-                    <button class="on-off-button" id="licht{{ lamp.id }}-button">
+                    <button class="on-off-button" id="licht{{ lamp.id }}-button" data-lamp-id="{{ lamp.id }}">
                         {% if lamp.status %}Licht an{% else %}Licht aus{% endif %}
                     </button>
-                    <input type="range" class="brightness-slider" min="0" max="100" value="{{ lamp.brightness }}">
+                    <input type="range" class="brightness-slider" min="0" max="100" value="{{ lamp.brightness }}"
+                           data-lamp-id="{{ lamp.id }}">
                     <form method="post" action="#">
-                        <label for="schedule_on">Einschalten um:</label>
-                        <input type="time" name="schedule_on" id="schedule_on">
-                        <div>
-                            <button type="reset">Abbrechen</button>
-                            <button type="submit">Planen</button>
-                        </div>
-                    </form>
-                    <form method="post" action="#">
-                        <label for="schedule_off">Ausschalten um:</label>
-                        <input type="time" name="schedule_off" id="schedule_off">
-                        <div>
-                            <button type="reset">Abbrechen</button>
-                            <button type="submit">Planen</button>
-                        </div>
+                        <!-- Restlicher Code für die Zeitplanung -->
                     </form>
                 </div>
             </div>
         {% endfor %}
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Verwende Delegierung, um auf Klicks zu reagieren
+            $(document).on('click', '.on-off-button', function () {
+                var lampId = $(this).data('lamp-id');
+                var currentStatus = $(this).text().toLowerCase() === 'licht an';
+                toggleLamp(lampId, currentStatus);
+            });
+
+            // AJAX-Aufruf, wenn sich der Helligkeitsschieberegler ändert
+            $(document).on('input', '.brightness-slider', function () {
+                var lampId = $(this).data('lamp-id');
+                var brightness = $(this).val();
+                updateBrightness(lampId, brightness);
+            });
+
+            function toggleLamp(lampId, currentStatus) {
+                // Umkehrung des Status
+                var newStatus = currentStatus ? 'False' : 'True';
+
+                // AJAX-Aufruf
+                $.ajax({
+                    url: '/toggle-lamp/' + lampId + '/',
+                    method: 'POST',
+                    data: {'status': newStatus},
+                    success: function (data) {
+                        // Aktualisiere den Button-Text
+                        var buttonText = newStatus === 'True' ? 'Licht an' : 'Licht aus';
+                        $('#licht' + lampId + '-button').text(buttonText);
+
+                        // Aktualisiere das Bild basierend auf dem neuen Status
+                        var imageUrl = newStatus === 'True' ? '{% static "main/images/2910890.png" %}' : '{% static "main/images/2910914.png" %}';
+                        $('#image' + lampId).attr('src', imageUrl);
+                    }
+                });
+            }
+
+            function updateBrightness(lampId, brightness) {
+                // AJAX-Aufruf
+                $.ajax({
+                    url: '/update-brightness/' + lampId + '/',
+                    method: 'POST',
+                    data: {'brightness': brightness},
+                    success: function (data) {
+                        // Hier könntest du bei Bedarf weitere Aktualisierungen vornehmen
+                    }
+                });
+            }
+        });
+    </script>
 {% endblock %}

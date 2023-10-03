@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'main/css/main.css' %}">
+{% endblock %}
+
+{% block main %}
+    <h1>Lampensteuerung</h1>
+    <div class="lamp-container">
+        {% for lamp in lamps %}
+            <div class="lamp">
+                <h2>{{ lamp.name }}</h2>
+                <img src="{% if lamp.status %}{% static 'main/images/2910890.png' %}
+                    {% else %}{% static 'main/images/2910914.png' %}{% endif %}" alt="{{ lamp.name }}"
+                     id="image{{ lamp.id }}">
+                <div class="btn-cont">
+                    <button class="on-off-button" id="licht{{ lamp.id }}-button">
+                        {% if lamp.status %}Licht an{% else %}Licht aus{% endif %}
+                    </button>
+                    <input type="range" class="brightness-slider" min="0" max="100" value="{{ lamp.brightness }}">
+                    <form method="post" action="#">
+                        <label for="schedule_on">Einschalten um:</label>
+                        <input type="time" name="schedule_on" id="schedule_on">
+                        <div>
+                            <button type="reset">Abbrechen</button>
+                            <button type="submit">Planen</button>
+                        </div>
+                    </form>
+                    <form method="post" action="#">
+                        <label for="schedule_off">Ausschalten um:</label>
+                        <input type="time" name="schedule_off" id="schedule_off">
+                        <div>
+                            <button type="reset">Abbrechen</button>
+                            <button type="submit">Planen</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

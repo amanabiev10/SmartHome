@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.http import require_POST
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from devices.models import Lamp
 from devices.forms import LampForm
 
@@ -24,24 +24,22 @@ def create_lamp(request):
     return render(request, 'devices/create_lamp.html', context)
 
 
-def update_lamp(request, lamp_id):
-    lamp = get_object_or_404(Lamp, id=lamp_id, user=request.user)
+@csrf_exempt
+def toggle_lamp(request, lamp_id):
+    lamp = get_object_or_404(Lamp, id=lamp_id)
+    new_status = request.POST.get('status')
+    lamp.status = new_status
+    lamp.save()
+    return JsonResponse({'success': True})
 
-    if request.method == 'POST':
-        form = LampForm(request.POST, instance=lamp)
-        if form.is_valid():
-            form.save()
-            return JsonResponse({'status': 'success'})
-        else:
-            return JsonResponse({'status': 'error', 'errors': form.errors})
-    else:
-        form = LampForm(instance=lamp)
 
-    context = {
-        'title': f'Update Lampe: {lamp.name}',
-        'form': form,
-    }
-    return render(request, 'devices/update_lamp.html', context)
+@csrf_exempt
+def update_brightness(request, lamp_id):
+    lamp = get_object_or_404(Lamp, id=lamp_id)
+    new_brightness = request.POST.get('brightness')
+    lamp.brightness = new_brightness
+    lamp.save()
+    return JsonResponse({'success': True})
 
 
 def index(request):
