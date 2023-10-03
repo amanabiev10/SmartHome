@@ -11,14 +11,17 @@
 
 
 {% block main %}
-    <div class="create_lamp">
-        <form action="" method="post">
-            {% csrf_token %}
-            <h1>Neue Lampe hinzufügen</h1>
-            {{ form.as_p }}
-            <button type="submit">erstellen</button>
-        </form>
+    <h1>Neue Lampe hinzufügen</h1>
+    <div class="container">
+        <div class="create_lamp">
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">erstellen</button>
+            </form>
+        </div>
     </div>
+
 {% endblock %}l %}
 
 {% block javascript %}

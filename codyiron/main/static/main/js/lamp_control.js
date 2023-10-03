@@ -13,6 +13,13 @@ $(document).ready(function () {
         updateBrightness(lampId, brightness);
     });
 
+    // AJAX-Aufruf, wenn sich die Farbauswahl ändert
+    $(document).on('input', '.color-picker', function () {
+        var lampId = $(this).data('lamp-id');
+        var color = $(this).val();
+        updateColor(lampId, color);
+    });
+
     function toggleLamp(lampId, currentStatus) {
         // Umkehrung des Status
         var newStatus = currentStatus ? 'False' : 'True';
@@ -28,7 +35,7 @@ $(document).ready(function () {
                 $('#licht' + lampId + '-button').text(buttonText);
 
                 // Aktualisiere das Bild basierend auf dem neuen Status
-                var imageUrl = newStatus === 'True' ? '{% static "main/images/2910890.png" %}' : '{% static "main/images/2910914.png" %}';
+                var imageUrl = newStatus === 'True' ? '/static/main/images/2910890.png' : '/static/main/images/2910914.png';
                 $('#image' + lampId).attr('src', imageUrl);
             }
         });
@@ -40,6 +47,18 @@ $(document).ready(function () {
             url: '/update-brightness/' + lampId + '/',
             method: 'POST',
             data: {'brightness': brightness},
+            success: function (data) {
+                // Hier könntest du bei Bedarf weitere Aktualisierungen vornehmen
+            }
+        });
+    }
+
+    function updateColor(lampId, color) {
+        // AJAX-Aufruf
+        $.ajax({
+            url: '/update-color/' + lampId + '/',
+            method: 'POST',
+            data: {'color': color},
             success: function (data) {
                 // Hier könntest du bei Bedarf weitere Aktualisierungen vornehmen
             }

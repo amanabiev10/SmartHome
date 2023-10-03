@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import Permission
 from accounts.models import User
+from decimal import Decimal
+from django.utils import timezone
 
 
 class Lamp(models.Model):
@@ -30,79 +32,51 @@ class Lamp(models.Model):
     schedule_off = models.TimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def calculate_energy_consumption(self):
+        try:
+            brightness_factor = float(self.brightness) / 100.0
+        except ValueError:
+            brightness_factor = 2.0  # Beispielwert für den Fall, dass die Konvertierung fehlschlägt
+
+        base_consumption = 5.0
+
+        energy_consumption = base_consumption + (brightness_factor * 10.0)
+
+        return energy_consumption
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        # Wenn sich der Status ändert, aktualisiere die LampStatistics
+        if self.status:
+            try:
+                statistics = self.statistics
+            except LampStatistics.DoesNotExist:
+                statistics = LampStatistics(lamp=self)
+
+            energy_consumption = self.calculate_energy_consumption()
+            statistics.energy_consumption = Decimal(energy_consumption)
+            statistics.usage_duration = timezone.timedelta(seconds=60)
+            statistics.save()
+
     def __str__(self):
         return self.name
 
-    def turn_on(self):
-        self.status = True
-        self.save()
-
-    def turn_off(self):
-        self.status = False
-        self.save()
-
-    def get_status(self):
-        return self.status
-
-    def set_brightness(self, brightness):
-        brightness = max(0, min(brightness, 100))
-        self.brightness = brightness
-        self.save()
-
-    def get_brightness(self):
-        return self.brightness
-
-    def set_color(self, color):
-        self.color = color
-        self.save()
-
-    def get_color(self):
-        return self.color
-
-    def set_schedule_on(self, time):
-        self.schedule_on = time
-        self.save()
-
-    def get_schedule_on(self):
-        return self.schedule_on
-
-    def set_schedule_off(self, time):
-        self.schedule_off = time
-        self.save()
-
-    def get_schedule_off(self):
-        return self.schedule_off
-
 
 class LampStatistics(models.Model):
-    lamp = models.ForeignKey(Lamp, on_delete=models.CASCADE, related_name='statistics')
+    lamp = models.OneToOneField(Lamp, on_delete=models.CASCADE, related_name='statistics')
     timestamp = models.DateTimeField(auto_now_add=True)
     energy_consumption = models.DecimalField(max_digits=8, decimal_places=2)
     usage_duration = models.DurationField()
 
+    @classmethod
+    def create_statistics(cls, lamp):
+        energy_consumption = lamp.calculate_energy_consumption()
+        cls.objects.create(
+            lamp=lamp,
+            energy_consumption=Decimal(energy_consumption),
+            usage_duration=timezone.timedelta(seconds=60)
+        )
+
     def __str__(self):
         return f'Statistics for {self.lamp.name} at {self.timestamp}'
-
-    @classmethod
-    def add_statistics(cls, lamp, energy_consumption, usage_duration):
-        # Diese Methode fügt neue Statistiken für eine Lampe hinzu
-        cls.objects.create(lamp=lamp, energy_consumption=energy_consumption, usage_duration=usage_duration)
-
-    @classmethod
-    def get_statistics_for_lamp(cls, lamp):
-        # Diese Methode ruft alle Statistiken für eine bestimmte Lampe ab
-        return cls.objects.filter(lamp=lamp)
-
-    @classmethod
-    def get_total_energy_consumption_for_lamp(cls, lamp):
-        # Diese Methode berechnet der Gesamtenergieverbrauch für eine Lampe
-        statistics = cls.get_statistics_for_lamp(lamp)
-        total_energy_consumption = sum(stat.energy_consumption for stat in statistics)
-        return total_energy_consumption
-
-    @classmethod
-    def get_total_usage_duration_for_lamp(cls, lamp):
-        # Diese Methode berechnet die Gesamtnutzungsdauer für eine Lampe
-        statistics = cls.get_statistics_for_lamp(lamp)
-        total_usage_duration = sum(stat.usage_duration for stat in statistics)
-        return total_usage_duration

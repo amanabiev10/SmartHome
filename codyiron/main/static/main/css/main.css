@@ -11,6 +11,7 @@ h1 {
     background-color: #333;
     color: #fff;
     margin: 0;
+    border-radius: 5px;
 }
 
 .lamp-container {
@@ -23,8 +24,8 @@ h1 {
 .lamp {
     background-color: #fff;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    padding-top: 15px;
+    border-radius: 20px;
+    padding: 15px;
     margin: 10px;
     width: 350px;
     text-align: center;
@@ -56,7 +57,12 @@ h1 {
 }
 
 .brightness-slider {
-    width: 80%;
+    width: 100%;
+    margin: 0 auto 10px;
+}
+
+.color-picker{
+    width: 100%;
     margin: 0 auto 10px;
 }
 
