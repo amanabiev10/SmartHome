@@ -16,6 +16,7 @@ def api_token_list(request):
     tokens = Token.objects.filter(user=user)
 
     context = {
+        'title': 'API Token Generieren',
         'tokens': tokens
     }
     return render(request, 'devices/api_token_list.html', context)

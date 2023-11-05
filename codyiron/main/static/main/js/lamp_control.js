@@ -30,11 +30,11 @@ $(document).ready(function () {
             method: 'POST',
             data: {'status': newStatus},
             success: function (data) {
-                // Aktualisiere den Button-Text
+                // Aktualisiert den Button-Text
                 var buttonText = newStatus === 'True' ? 'Licht an' : 'Licht aus';
                 $('#licht' + lampId + '-button').text(buttonText);
 
-                // Aktualisiere das Bild basierend auf dem neuen Status
+                // Aktualisiert das Bild basierend auf dem neuen Status
                 var imageUrl = newStatus === 'True' ? '/static/main/images/2910890.png' : '/static/main/images/2910914.png';
                 $('#image' + lampId).attr('src', imageUrl);
             }
@@ -48,7 +48,6 @@ $(document).ready(function () {
             method: 'POST',
             data: {'brightness': brightness},
             success: function (data) {
-                // Hier könntest du bei Bedarf weitere Aktualisierungen vornehmen
             }
         });
     }
@@ -60,7 +59,6 @@ $(document).ready(function () {
             method: 'POST',
             data: {'color': color},
             success: function (data) {
-                // Hier könntest du bei Bedarf weitere Aktualisierungen vornehmen
             }
         });
     }

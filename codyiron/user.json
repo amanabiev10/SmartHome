@@ -24,32 +24,6 @@
     "model": "accounts.user",
     "pk": 2,
     "fields": {
-      "password": "pbkdf2_sha256$600000$CatJ1sdfet8ufPz82LEVlH$ewDzbBm81wekQHi6W5hG5vVsvaUwSrbMzY8JA94TzqQ=",
-      "last_login": "2023-09-27T22:05:00.334Z",
-      "is_superuser": false,
-      "username": "aman",
-      "first_name": "Amanbek",
-      "last_name": "Almazbekov",
-      "email": "amanabiev10@gmail.com",
-      "is_staff": true,
-      "is_active": true,
-      "date_joined": "2023-09-27T19:30:06Z",
-      "display_name": "Almazbekov Amanbek",
-      "registered": "2023-09-27T19:30:06.623Z",
-      "created_at": "2023-09-27T19:31:13.597Z",
-      "groups": [],
-      "user_permissions": [
-        29,
-        30,
-        31,
-        32
-      ]
-    }
-  },
-  {
-    "model": "accounts.user",
-    "pk": 3,
-    "fields": {
       "password": "pbkdf2_sha256$600000$ZGaqjffoIcRMeh9JUTl09t$rwONe5pqQDVNg1G3EdZTbZ/R4hq18BaXkZPmLJOqsNM=",
       "last_login": null,
       "is_superuser": false,
@@ -74,7 +48,7 @@
   },
   {
     "model": "accounts.user",
-    "pk": 4,
+    "pk": 3,
     "fields": {
       "password": "pbkdf2_sha256$600000$sp9C8OyLapZTcF9b29rk7F$iQiC5ioqbsvLBL2PjBVKj+Hu36PQ+Kl7/jmMVAMI/OM=",
       "last_login": "2023-09-28T09:33:52.858Z",
