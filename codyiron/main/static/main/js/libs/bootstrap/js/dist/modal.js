@@ -4,8 +4,8 @@
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('./util/index'), require('./dom/event-handler'), require('./dom/selector-engine'), require('./util/scrollbar'), require('./base-component'), require('./util/backdrop'), require('./util/focustrap'), require('./util/component-functions')) :
-  typeof define === 'function' && define.amd ? define(['./util/index', './dom/event-handler', './dom/selector-engine', './util/scrollbar', './base-component', './util/backdrop', './util/focustrap', './util/component-functions'], factory) :
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('./util'), require('./dom/event-handler'), require('./dom/selector-engine'), require('./util/scrollbar'), require('./base-component'), require('./util/backdrop'), require('./util/focustrap'), require('./util/component-functions')) :
+  typeof define === 'function' && define.amd ? define(['./util', './dom/event-handler', './dom/selector-engine', './util/scrollbar', './base-component', './util/backdrop', './util/focustrap', './util/component-functions'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Modal = factory(global.Index, global.EventHandler, global.SelectorEngine, global.Scrollbar, global.BaseComponent, global.Backdrop, global.Focustrap, global.ComponentFunctions));
 })(this, (function (index, EventHandler, SelectorEngine, ScrollBarHelper, BaseComponent, Backdrop, FocusTrap, componentFunctions) { 'use strict';
 

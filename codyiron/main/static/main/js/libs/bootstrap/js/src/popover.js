@@ -5,7 +5,7 @@
  * --------------------------------------------------------------------------
  */
 
-import { defineJQueryPlugin } from './util/index'
+import { defineJQueryPlugin } from './util'
 import Tooltip from './tooltip'
 
 /**

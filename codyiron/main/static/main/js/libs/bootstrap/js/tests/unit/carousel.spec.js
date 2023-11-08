@@ -1,7 +1,7 @@
 import Carousel from '../../src/carousel'
 import EventHandler from '../../src/dom/event-handler'
 import { clearFixture, createEvent, getFixture, jQueryMock } from '../helpers/fixture'
-import { isRTL, noop } from '../../src/util/index'
+import { isRTL, noop } from '../../src/util'
 import Swipe from '../../src/util/swipe'
 
 describe('Carousel', () => {

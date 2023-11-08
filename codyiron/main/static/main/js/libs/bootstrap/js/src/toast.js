@@ -5,7 +5,7 @@
  * --------------------------------------------------------------------------
  */
 
-import { defineJQueryPlugin, reflow } from './util/index'
+import { defineJQueryPlugin, reflow } from './util'
 import EventHandler from './dom/event-handler'
 import BaseComponent from './base-component'
 import { enableDismissTrigger } from './util/component-functions'

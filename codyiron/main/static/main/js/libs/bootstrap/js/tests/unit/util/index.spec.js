@@ -1,6 +1,6 @@
-import * as Util from '../../../src/util/index'
+import * as Util from '../../../src/util'
 import { clearFixture, getFixture } from '../../helpers/fixture'
-import { noop } from '../../../src/util/index'
+import { noop } from '../../../src/util'
 
 describe('Util', () => {
   let fixtureEl

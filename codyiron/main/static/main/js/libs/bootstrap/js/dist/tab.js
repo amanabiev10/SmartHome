@@ -4,8 +4,8 @@
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('./util/index'), require('./dom/event-handler'), require('./dom/selector-engine'), require('./base-component')) :
-  typeof define === 'function' && define.amd ? define(['./util/index', './dom/event-handler', './dom/selector-engine', './base-component'], factory) :
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('./util'), require('./dom/event-handler'), require('./dom/selector-engine'), require('./base-component')) :
+  typeof define === 'function' && define.amd ? define(['./util', './dom/event-handler', './dom/selector-engine', './base-component'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Tab = factory(global.Index, global.EventHandler, global.SelectorEngine, global.BaseComponent));
 })(this, (function (index, EventHandler, SelectorEngine, BaseComponent) { 'use strict';
 

@@ -4,8 +4,8 @@
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@popperjs/core'), require('./util/index'), require('./dom/event-handler'), require('./dom/manipulator'), require('./dom/selector-engine'), require('./base-component')) :
-  typeof define === 'function' && define.amd ? define(['@popperjs/core', './util/index', './dom/event-handler', './dom/manipulator', './dom/selector-engine', './base-component'], factory) :
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('@popperjs/core'), require('./util'), require('./dom/event-handler'), require('./dom/manipulator'), require('./dom/selector-engine'), require('./base-component')) :
+  typeof define === 'function' && define.amd ? define(['@popperjs/core', './util', './dom/event-handler', './dom/manipulator', './dom/selector-engine', './base-component'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Dropdown = factory(global["@popperjs/core"], global.Index, global.EventHandler, global.Manipulator, global.SelectorEngine, global.BaseComponent));
 })(this, (function (Popper, index, EventHandler, Manipulator, SelectorEngine, BaseComponent) { 'use strict';
 

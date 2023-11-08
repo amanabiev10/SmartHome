@@ -6,7 +6,7 @@
  */
 
 import Data from './dom/data'
-import { executeAfterTransition, getElement } from './util/index'
+import { executeAfterTransition, getElement } from './util'
 import EventHandler from './dom/event-handler'
 import Config from './util/config'
 

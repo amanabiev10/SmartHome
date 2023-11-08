@@ -4,8 +4,8 @@
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('./util/index'), require('./tooltip')) :
-  typeof define === 'function' && define.amd ? define(['./util/index', './tooltip'], factory) :
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('./util'), require('./tooltip')) :
+  typeof define === 'function' && define.amd ? define(['./util', './tooltip'], factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Popover = factory(global.Index, global.Tooltip));
 })(this, (function (index, Tooltip) { 'use strict';
 

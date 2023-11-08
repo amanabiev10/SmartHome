@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-)gf4i)gz&a%^vvsa!-^1h^4i*=tqnxbkv5p3$2ws=gq3fde5ob'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -133,12 +133,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+# URL-Prefix für statische Dateien (CSS, JavaScript, Bilder)
+STATIC_URL = '/static/'
+
+# Verzeichnis für App-spezifische statische Dateien (wenn vorhanden)
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
+# Verzeichnis für gesammelte statische Dateien (wo sie gespeichert werden)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# URL-Prefix für Mediendateien (Datei-Uploads)
 MEDIA_URL = '/media/'
+
+# Verzeichnis, in dem hochgeladene Mediendateien gespeichert werden
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type

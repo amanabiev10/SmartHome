@@ -15,7 +15,7 @@ import {
   isRTL,
   isVisible,
   noop
-} from './util/index'
+} from './util'
 import EventHandler from './dom/event-handler'
 import Manipulator from './dom/manipulator'
 import SelectorEngine from './dom/selector-engine'

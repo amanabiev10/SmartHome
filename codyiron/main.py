@@ -11,7 +11,7 @@ response = requests.get(url, headers=headers)
 # Überprüfe, ob die Anfrage erfolgreich war (Statuscode 200)
 if response.status_code == 200:
     # Gib die JSON-Daten aus
-    lamp_data = response.json()
+    lamp_data = response.json
 
     for i in lamp_data:
         print(i)
