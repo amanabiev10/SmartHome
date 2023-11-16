@@ -5,9 +5,9 @@ Copy code
 1. [Funktionalitäten](#funktionalitäten)
 2. [Technologien](#technologien)
 3. [Installation](#installation)
-4. [Django Accounts App Dokumentation](#Django Accounts App Dokumentation)
-5. [Django Devices App Dokumentation](#Django Devices App Dokumentation)
-6. [Django Main App Dokumentation](#Django Main App Dokumentation)
+4. [Django Accounts App Dokumentation](#django-accounts-app-dokumentation)
+5. [Django Devices App Dokumentation](#django-devices-app-dokumentation)
+6. [Django Main App Dokumentation](#django-main-app-dokumentation)
 6. [API-Dokumentation](#api-dokumentation)
 7. [Beispielcode ESP32](#beispielcode-esp32)
 
