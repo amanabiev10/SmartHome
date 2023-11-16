@@ -24,8 +24,8 @@ Benutzer können über die Webseite Geräte hinzufügen, ein Konto erstellen und
 Das Projekt nutzt folgende Technologien:
 
 - Frontend: HTML, CSS, JavaScript
-- Backend: [Dein verwendetes Backend-Framework/Technologie]
-- ESP32 Programmierung: [Verwendete Programmiersprache, z.B., C++]
+- Backend: [Python, Django, Django REST framework]
+- ESP32 Programmierung: [C++, Python (Was Sie lieben)]
 
 ## Installation
 Um das Projekt lokal auszuführen, führen Sie die folgenden Schritte aus:
