@@ -1,4 +1,3 @@
-Copy code
 # Smart Home Control Web App Dokumentation
 
 ## Inhaltsverzeichnis
