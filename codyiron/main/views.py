@@ -59,8 +59,6 @@ def create_lamp(request):
             lamp = form.save(commit=False)
             lamp.user = request.user
             lamp.save()
-
-            LampStatistics.create_statistics(lamp)
             return redirect('main:index')
     else:
         form = LampForm()
