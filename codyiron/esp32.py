@@ -1,14 +1,16 @@
-import network
-import time
-import urequests
 from machine import Pin, PWM
+import network, time, urequests
 
-pin_badezimmer = [13, 12, 14]
-pin_schlafzimmer = [5, 4, 2]
-pin_wohnzimmer = [15, 0, 2]
-pin_flur = [4, 16, 17]
+# GPIO-Pins für die RGB-LED festlegen
+lampe_pins = [
+    [14, 12, 27, 26],  # Lampe 1
+    [15, 13, 33, 32],  # Lampe 2
+    [2, 14, 22, 21],  # Lampe 3
+    [4, 23, 18, 5],  # Lampe 4
+    [16, 17, 19, 15],  # Lampe 5
+    [25, 26, 21, 19]  # Lampe 6
+]
 
-# Replace with your Wi-Fi credentials
 WIFI_SSID = 'Vire'
 WIFI_PASSWORD = 'pipo0102030405'
 
@@ -33,42 +35,42 @@ def connect_to_wifi(ssid, password):
 connect_to_wifi(WIFI_SSID, WIFI_PASSWORD)
 
 
-def set_rgb_color(led_pin, color):
-    # Extrahiere die RGB-Werte aus dem Hex-Code
-    red = int(color[1:3], 16)
-    green = int(color[3:5], 16)
-    blue = int(color[5:7], 16)
+# GPIO initialisieren
+def initialize_lamp_pins(common, red, green, blue):
+    common_cathode = Pin(common, Pin.OUT)
+    red_led = PWM(Pin(red), freq=1000, duty=0)
+    green_led = PWM(Pin(green), freq=1000, duty=0)
+    blue_led = PWM(Pin(blue), freq=1000, duty=0)
 
-    # Initialisiere die PWM-Pins für die RGB-LED
-    red_led = PWM(Pin(led_pin[0]), freq=5000, duty=red)
-    green_led = PWM(Pin(led_pin[1]), freq=5000, duty=green)
-    blue_led = PWM(Pin(led_pin[2]), freq=5000, duty=blue)
-
-    # Warte eine Weile und schalte dann die LED aus
-    time.sleep(5)
-
-    # Schalte die LED aus
-    red_led.duty(0)
-    green_led.duty(0)
-    blue_led.duty(0)
+    return common_cathode, red_led, green_led, blue_led
 
 
-def turn_on(led_pin):
-    # Initialisiere den PWM-Pin für die LED
-    led = PWM(Pin(led_pin), freq=5000, duty=1023)  # duty=1023 entspricht 100% Helligkeit
+# Funktion zur Einstellung der Farbe und Helligkeit
+def set_color(red_led, green_led, blue_led, red, green, blue, brightness):
+    # Helligkeit anpassen
+    red = int(red * brightness / 100)
+    green = int(green * brightness / 100)
+    blue = int(blue * brightness / 100)
+
+    # LEDs steuern (Duty Cycle für PWM)
+    red_led.duty(int((255 - red) / 255 * 1023))
+    green_led.duty(int((255 - green) / 255 * 1023))
+    blue_led.duty(int((255 - blue) / 255 * 1023))
 
 
-def turn_off(led_pin):
-    # Initialisiere den PWM-Pin für die LED und setze die Helligkeit auf 0 (aus)
-    led = PWM(Pin(led_pin), freq=5000, duty=0)
+# Funktion zur Konvertierung von Hex-String zu RGB
+def hex_to_rgb(hex_string):
+    return (
+        int(hex_string[1:3], 16),
+        int(hex_string[3:5], 16),
+        int(hex_string[5:], 16)
+    )
 
 
-def set_brightness(led_pin, brightness):
-    # Begrenze die Helligkeit auf den Bereich von 0 bis 1023
-    brightness = max(0, min(brightness, 1023))
-
-    # Initialisiere den PWM-Pin für die LED
-    led = PWM(Pin(led_pin), freq=5000, duty=brightness)
+# Funktion zum Ein- und Ausschalten der RGB-LED
+def toggle_led(state):
+    # Gemeinsame Kathode steuern
+    common_cathode.value(state)
 
 
 while True:
@@ -81,63 +83,21 @@ while True:
         # Gib die JSON-Daten aus
         lampen_liste = response.json()
 
-        for lampe in lampen_liste:
-            lampe_id = lampe['id']
-            lampe_name = lampe['name']
-            lampe_status = lampe['status']
-            lampe_color = lampe['color']
-            lampe_brightness = lampe['brightness']
+        for lampe in range(len(lampen_liste)):
+            lampe_status = lampen_liste[lampe]['status']
+            lampe_color = lampen_liste[lampe]['color']
+            lampe_brightness = lampen_liste[lampe]['brightness']
 
-            if lampe_id == 1:
-                if lampe_status:
-                    # Lampe einschalten
-                    turn_on(pin_badezimmer[0])
-                    # Setze die Helligkeit
-                    set_brightness(pin_badezimmer[0], lampe_brightness)
-                    # Setze die Farbe
-                    set_rgb_color(pin_badezimmer, lampe_color)
-                else:
-                    # Lampe ausschalten
-                    turn_off(pin_badezimmer[0])
-                print(f"{lampe_name}: {lampe_status}, {lampe_brightness}, {lampe_color}")
-            elif lampe_id == 3:
-                if lampe_status:
-                    # Lampe einschalten
-                    turn_on(pin_schlafzimmer[0])
-                    # Setze die Helligkeit
-                    set_brightness(pin_schlafzimmer[0], lampe_brightness)
-                    # Setze die Farbe
-                    set_rgb_color(pin_schlafzimmer, lampe_color)
-                else:
-                    # Lampe ausschalten
-                    turn_off(pin_schlafzimmer[0])
-                print(f"{lampe_name}: {lampe_status}, {lampe_brightness}, {lampe_color}")
-            elif lampe_id == 4:
-                if lampe_status:
-                    # Lampe einschalten
-                    turn_on(pin_wohnzimmer[0])
-                    # Setze die Helligkeit
-                    set_brightness(pin_wohnzimmer[0], lampe_brightness)
-                    # Setze die Farbe
-                    set_rgb_color(pin_wohnzimmer, lampe_color)
-                else:
-                    # Lampe ausschalten
-                    turn_off(pin_wohnzimmer[0])
-                print(f"{lampe_name}: {lampe_status}, {lampe_brightness}, {lampe_color}")
-            elif lampe_id == 5:
-                if lampe_status:
-                    # Lampe einschalten
-                    turn_on(pin_flur[0])
-                    # Setze die Helligkeit
-                    set_brightness(pin_flur[0], lampe_brightness)
-                    # Setze die Farbe
-                    set_rgb_color(pin_flur, lampe_color)
-                else:
-                    # Lampe ausschalten
-                    turn_off(pin_flur[0])
-                print(f"{lampe_name}: {lampe_status}, {lampe_brightness}, {lampe_color}")
+            common_cathode, red_led, green_led, blue_led = initialize_lamp_pins(common=lampe_pins[lampe][0],
+                                                                                red=lampe_pins[lampe][1],
+                                                                                green=lampe_pins[lampe][2],
+                                                                                blue=lampe_pins[lampe][3])
+            color = hex_to_rgb(lampe_color)
+            set_color(red_led, green_led, blue_led, *color, lampe_brightness)
+            if lampe_status and lampe_brightness > 0:
 
+                common_cathode.value(1)
+            else:
+                common_cathode.value(0)
     else:
         print(f"Fehler: {response.status_code}")
-
-    response.close()

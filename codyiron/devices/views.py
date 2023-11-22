@@ -40,7 +40,7 @@ class LampList(generics.ListCreateAPIView):
 
     def get_queryset(self):
         # Filtere die Lampen nach dem angemeldeten Benutzer
-        return Lamp.objects.filter(user=self.request.user)
+        return Lamp.objects.filter(user=self.request.user).order_by('id')
 
 
 class LampDetail(generics.RetrieveUpdateDestroyAPIView):

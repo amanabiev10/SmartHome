@@ -7,11 +7,12 @@ response = requests.get(url, headers=headers)
 
 if response.status_code == 200:
     # Gib die JSON-Daten aus
-    lamp_data = response.json()
+    lampen_liste = response.json()
 
-    print(lamp_data)
+    for lampe in lampen_liste:
+        print(lampe)
+
 else:
     print(f"Fehler: {response.status_code}")
 
 response.close()
-
