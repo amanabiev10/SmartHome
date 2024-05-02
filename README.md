@@ -34,7 +34,7 @@ Um das Projekt lokal auszuführen, führen Sie die folgenden Schritte aus:
 2. Wechsle in das Verzeichnis: `cd dein-projekt`
 3. Installiere die Abhängigkeiten: [Befehl zur Installation von Abhängigkeiten, z.B., npm install]
 
-# Django Accounts App Dokumentation
+# Accounts App Dokumentation
 
 Die `accounts`-App in Ihrem Django-Projekt enthält Benutzermodelle, Formulare für die Benutzerregistrierung und -anmeldung sowie Ansichten für diese Aktionen. Hier ist eine Dokumentation für die Klassen und Methoden in der `accounts`-App.
 
@@ -90,7 +90,7 @@ Die Ansicht für die Benutzerabmeldung.
 
 - Loggt den Benutzer aus und leitet zur Hauptseite weiter.
 
-# Django Devices App Dokumentation
+# Devices App Dokumentation
 
 Die `devices`-App in Ihrem Django-Projekt enthält Modelle für Lampen, Ansichten für die Steuerung von Lampen, Berechtigungen und Serialisierer für die API. Hier ist eine Dokumentation für die Klassen und Methoden in der `devices`-App.
 
@@ -178,7 +178,7 @@ Eine API-Ansicht für das Abrufen, Aktualisieren und Löschen von Lampen.
 
 Die Ansicht generiert ein API-Token für den angemeldeten Benutzer.
 
-# Django Main App Dokumentation
+# Main App Dokumentation
 
 Die `main`-App in Ihrem Django-Projekt enthält Ansichten und URLs für die Hauptseite, die Steuerung von Lampen und das Hinzufügen von Lampen. Hier ist eine Dokumentation für die Klassen und Methoden in der `main`-App.
 
