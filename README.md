@@ -265,7 +265,7 @@ Hier sind einige Erläuterungen zum bereitgestellten Beispielcode:
 - `for lamp in lamp_data: print(lamp)`: Durchläuft und gibt die Lampendaten aus.
 - `response.close()`: Schließt die Verbindung zur API.
 
-## Beispielcode ESP32](#beispielcode-esp32
+## Beispielcode-esp32
 
 ```
 from machine import Pin, PWM
