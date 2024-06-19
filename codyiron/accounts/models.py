@@ -7,6 +7,9 @@ class User(AbstractUser):
     registered = models.DateTimeField(auto_now_add=True)
     created_at = models.DateTimeField(auto_now=True)
 
+    def get_display_name(self):
+        return self.display_name
+
     def save(self, *args, **kwargs):
         if not self.pk:
             self.display_name = f'{self.last_name} {self.first_name}'
