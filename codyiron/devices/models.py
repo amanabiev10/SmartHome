@@ -15,7 +15,6 @@ class Lamp(models.Model):
         ('#ffff00', 'Gelb'),
         ('#ff00ff', 'Magenta'),
         ('#ffa500', 'Orange'),
-        ('#800080', 'Lila'),
         ('#a52a2a', 'Braun'),
         ('#808080', 'Grau'),
         ('#ff69b4', 'Rosa'),
